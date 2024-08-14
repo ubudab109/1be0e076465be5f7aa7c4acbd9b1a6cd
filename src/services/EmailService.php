@@ -23,6 +23,13 @@ class EmailService
         $this->repository = $repository;
     }
 
+    /**
+     * The function getRedis() returns the Redis client if initialized, otherwise throws an exception.
+     * 
+     * @return The `getRedis()` function is returning the Redis client instance (`->redis`) if it
+     * is initialized. If the Redis client is not initialized, it will throw an Exception with the
+     * message 'Redis client is not initialized.'
+     */
     public function getRedis()
     {
         if (!$this->redis) {
@@ -31,13 +38,16 @@ class EmailService
         return $this->redis;
     }
 
-    public function queuePendingEmails()
+    /**
+     * The function `queuePendingEmails` retrieves pending emails from a repository, pushes them to a
+     * Redis queue, and updates their status to 'processing'.
+     */
+    public function queuePendingEmails(): void
     {
         $pendingEmails = $this->repository->findManyBy('status', ['pending', 'procecssing']);
-        $redis = $this->getRedis(); // Mengakses Redis client
+        $redis = $this->getRedis();
 
         foreach ($pendingEmails as $email) {
-            // Buat payload job
             $job = [
                 'email' => $email['email'],
                 'message' => $email['message'],
@@ -45,10 +55,8 @@ class EmailService
                 'subject' => $email['subject'],
             ];
 
-            // Tambahkan job ke Redis list
             $redis->lpush('email_queue', json_encode($job));
 
-            // Update status menjadi 'processing'
             $this->repository->saveEmail([
                 'id' => $email['id'],
                 'status' => 'processing',
@@ -56,7 +64,11 @@ class EmailService
         }
     }
 
-    public function sendEmail()
+    /**
+     * The function `sendEmail` processes email jobs from a queue using PHPMailer and Redis, sending
+     * emails and updating their status accordingly.
+     */
+    public function sendEmail(): void
     {
         $this->getRedis();
         $mail = new PHPMailer(true);

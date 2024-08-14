@@ -1,17 +1,23 @@
 -- Create the database if it does not exist
-CREATE DATABASE IF NOT EXISTS levart_db;
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'emails_db') THEN
+        EXECUTE 'CREATE DATABASE emails_db';
+    END IF;
+END
+$$;
 
--- Switch to the new database
-\c levart_db;
+-- Connect to the newly created database
+\connect emails_db;
 
 -- Create the table if it does not exist
 CREATE TABLE IF NOT EXISTS public.emails (
     id BIGSERIAL PRIMARY KEY,
-    email character varying NOT NULL,
-    message text,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
-    status character varying,
-    subject character varying NOT NULL,
-    details text
+    email VARCHAR NOT NULL,
+    message TEXT,
+    created_at TIMESTAMPTZ DEFAULT now(),
+    updated_at TIMESTAMPTZ DEFAULT now(),
+    status VARCHAR,
+    subject VARCHAR NOT NULL,
+    details TEXT
 );

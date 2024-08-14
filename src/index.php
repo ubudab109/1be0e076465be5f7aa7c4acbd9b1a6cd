@@ -22,15 +22,17 @@ if ($_ENV['PHP_ENV'] == 'development' && php_sapi_name() !== 'cli-server') {
 // Create request
 $request = ServerRequestFactory::fromGlobals();
 
+// Get the HTTP method and URI
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-// Dispatch request
+// Remove query string from URI
 if (false !== $pos = strpos($uri, '?')) {
     $uri = substr($uri, 0, $pos);
 }
 $uri = rawurldecode($uri);
 
+// Dispatch request
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
 switch ($routeInfo[0]) {
@@ -42,7 +44,7 @@ switch ($routeInfo[0]) {
         break;
     case Dispatcher::FOUND:
         $handler = $routeInfo[1];
-        $vars = $routeInfo[2];
+        $vars = $routeInfo[2]; // Route parameters
 
         if (is_array($handler)) {
             $controller = $handler[0];
@@ -57,12 +59,12 @@ switch ($routeInfo[0]) {
                     $middleware = new $middlewareClass();
 
                     // Create CallbackHandler instance
-                    $callbackHandler = new CallbackMiddlewareHandler($callback);
+                    $callbackHandler = new CallbackMiddlewareHandler($callback, $vars);
 
                     // Process middleware
                     $response = $middleware->process($request, $callbackHandler);
                 } else {
-                    // No middleware, directly call the handler
+                    // Ensure that route parameters are passed to the handler
                     $response = call_user_func_array($callback, [$request, $vars]);
                 }
             } else {
@@ -73,6 +75,7 @@ switch ($routeInfo[0]) {
         }
         break;
 }
+
 // Handle RedirectResponse
 if ($response instanceof RedirectResponse) {
     header('Location: ' . $response->getHeaderLine('Location'));
@@ -83,4 +86,3 @@ if ($response instanceof RedirectResponse) {
     http_response_code($response->getStatusCode());
     echo $response->getBody();
 }
-

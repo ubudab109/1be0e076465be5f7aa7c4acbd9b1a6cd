@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "b4341057-6635-45ea-9c58-010b43c868fc",
+		"name": "Logique Test",
+		"description": "StartFragment\n\n### API Documentation\n\n**Email Sending**: Implemented using PHP Native.\n\n**Status Codes**:\n\n- **200 OK**: Data fetched successfully for `GET` requests.\n    \n- **201 Created**: Successfully created or updated for `POST` requests.\n    \n- **404 Not Found**: Data not found.\n    \n- **500 Internal Server Error**: An error occurred on the server.\n    \n- **401 Unauthorized**: Authentication required.\n    \n\n**Required Headers**:\n\n- **Authorization**: `Bearer {token}`\n    \n\n**How to Obtain Token**:\n\n- Log in via browser at `/api/login` to receive your token.\n    \n- Save it into enviroment `send-email`\n    \n\n**Response Schema**:\n\n``` json\n{\n    \"status\": \"string ('success' or 'error')\",\n    \"message\": \"string\",\n    \"data\": \"any (Object, Array, Null)\"\n}\n\n ```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36466072"
+	},
+	"item": [
+		{
+			"name": "List Emails",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/emails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"emails"
+					]
+				},
+				"description": "Get list emails"
+			},
+			"response": [
+				{
+					"name": "List Emails",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/emails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"emails"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 14 Aug 2024 16:54:30 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Email data fetched successfully\",\n    \"data\": [\n        {\n            \"id\": 45,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:33:13+07\",\n            \"updated_at\": \"2024-08-14 18:33:13+07\",\n            \"status\": \"failed\",\n            \"subject\": \"TEST\",\n            \"details\": \"You must provide at least one recipient email address.\"\n        },\n        {\n            \"id\": 46,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:34:08+07\",\n            \"updated_at\": \"2024-08-14 18:34:08+07\",\n            \"status\": \"failed\",\n            \"subject\": \"TEST\",\n            \"details\": \"You must provide at least one recipient email address.\"\n        },\n        {\n            \"id\": 48,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:34:49+07\",\n            \"updated_at\": \"2024-08-14 18:34:49+07\",\n            \"status\": \"processing\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 49,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:35:55+07\",\n            \"updated_at\": \"2024-08-14 18:35:55+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 50,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:42:21+07\",\n            \"updated_at\": \"2024-08-14 18:42:21+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 51,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:42:22+07\",\n            \"updated_at\": \"2024-08-14 18:42:22+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 52,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:42:22+07\",\n            \"updated_at\": \"2024-08-14 18:42:22+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 53,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:42:23+07\",\n            \"updated_at\": \"2024-08-14 18:42:23+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 29,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:21:14+07\",\n            \"updated_at\": \"2024-08-14 18:21:14+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 31,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:23:21+07\",\n            \"updated_at\": \"2024-08-14 18:23:21+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 33,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:24:22+07\",\n            \"updated_at\": \"2024-08-14 18:24:22+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 35,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:24:56+07\",\n            \"updated_at\": \"2024-08-14 18:24:56+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 36,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:25:05+07\",\n            \"updated_at\": \"2024-08-14 18:25:05+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 37,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:25:32+07\",\n            \"updated_at\": \"2024-08-14 18:25:32+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 39,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:26:57+07\",\n            \"updated_at\": \"2024-08-14 18:26:57+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 41,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:27:47+07\",\n            \"updated_at\": \"2024-08-14 18:27:47+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 43,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:29:02+07\",\n            \"updated_at\": \"2024-08-14 18:29:02+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 44,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:31:27+07\",\n            \"updated_at\": \"2024-08-14 18:31:27+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        },\n        {\n            \"id\": 47,\n            \"email\": \"usuirizky@gmail.com\",\n            \"message\": \"test\",\n            \"created_at\": \"2024-08-14 18:34:29+07\",\n            \"updated_at\": \"2024-08-14 18:34:29+07\",\n            \"status\": \"sent\",\n            \"subject\": \"TEST\",\n            \"details\": null\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Send Emails",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"usuirizky@gmail.com\",\r\n    \"subject\": \"TEST\",\r\n    \"message\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/emails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"emails"
+					]
+				},
+				"description": "Send email"
+			},
+			"response": [
+				{
+					"name": "Send Emails",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"usuirizky@gmail.com\",\r\n    \"subject\": \"TEST\",\r\n    \"message\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/emails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"emails"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 14 Aug 2024 16:54:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Email job queued successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Detail Emails",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/emails/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"emails",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				},
+				"description": "detail emails by id"
+			},
+			"response": [
+				{
+					"name": "Detail Emails",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/emails/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"emails",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 14 Aug 2024 19:11:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Email retrieved successfully\",\n    \"data\": {\n        \"id\": 2,\n        \"email\": \"usuirizky@gmail.com\",\n        \"message\": \"test\",\n        \"created_at\": \"2024-08-14 18:29:59+00\",\n        \"updated_at\": \"2024-08-14 18:29:59+00\",\n        \"status\": \"pending\",\n        \"subject\": \"TEST\",\n        \"details\": null\n    }\n}"
+				},
+				{
+					"name": "404",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/emails/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"emails",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 14 Aug 2024 19:17:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Email not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/emails/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"emails",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				},
+				"description": "delete emails by id"
+			},
+			"response": [
+				{
+					"name": "Delete Email",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/emails/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"emails",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 14 Aug 2024 19:13:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Email deleted successfully\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "404",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/emails/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"emails",
+								"2"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 14 Aug 2024 19:17:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Email not found\"\n}"
+				}
+			]
+		}
+	]
+}

@@ -6,7 +6,15 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
-function getPgConnection() {
+/**
+ * The function `getPgConnection` establishes a connection to a PostgreSQL database using environment
+ * variables for host, port, database name, username, and password.
+ * 
+ * @return PDO The function `getPgConnection` is returning a PDO (PHP Data Objects) database connection
+ * object.
+ */
+function getPgConnection(): PDO
+{
     $host = $_ENV['POSTGRES_HOST'];
     $port = $_ENV['POSTGRES_PORT'];
     $dbname = $_ENV['POSTGRES_DB'];

@@ -50,4 +50,9 @@ class EmailRepository
     {
         return $this->emailModel->findManyBy($column, $value);
     }
+
+    public function findOneById(int $id): Email
+    {
+        return $this->emailModel->find($id);
+    }
 }

@@ -58,8 +58,10 @@ project/
 ```
 ## HOW TO USE
 - First time, You need to open `url/api/login` or `http://localhost:8000/api/login`. You need login using Your google account to get the JWT Token.
-- You need to import these 2 files on Your postman to test endpoint. [send-email.postman_environment.json](https://github.com/user-attachments/files/16618343/send-email.postman_environment.json)
-[api-docs.postman_collection.json](https://github.com/user-attachments/files/16618344/api-docs.postman_collection.json) This files contains environment and collection for endpoint. You need to import this files to test the endpoint.
+- You need to import these 2 files on Your postman to test endpoint.
+- [send-email.postman_environment.json](https://github.com/user-attachments/files/16618343/send-email.postman_environment.json)
+- [api-docs.postman_collection.json](https://github.com/user-attachments/files/16618344/api-docs.postman_collection.json)
+- This files contains environment and collection for endpoint. You need to import this files to test the endpoint.
 
 ## API SCHEMA
 ```plaintext

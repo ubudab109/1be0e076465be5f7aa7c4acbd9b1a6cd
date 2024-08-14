@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "b4341057-6635-45ea-9c58-010b43c868fc",
-		"name": "Logique Test",
+		"name": "Send Email DOCS",
 		"description": "StartFragment\n\n### API Documentation\n\n**Email Sending**: Implemented using PHP Native.\n\n**Status Codes**:\n\n- **200 OK**: Data fetched successfully for `GET` requests.\n    \n- **201 Created**: Successfully created or updated for `POST` requests.\n    \n- **404 Not Found**: Data not found.\n    \n- **500 Internal Server Error**: An error occurred on the server.\n    \n- **401 Unauthorized**: Authentication required.\n    \n\n**Required Headers**:\n\n- **Authorization**: `Bearer {token}`\n    \n\n**How to Obtain Token**:\n\n- Log in via browser at `/api/login` to receive your token.\n    \n- Save it into enviroment `send-email`\n    \n\n**Response Schema**:\n\n``` json\n{\n    \"status\": \"string ('success' or 'error')\",\n    \"message\": \"string\",\n    \"data\": \"any (Object, Array, Null)\"\n}\n\n ```",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36466072"

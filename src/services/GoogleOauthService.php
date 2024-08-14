@@ -44,7 +44,7 @@ class GoogleOauthService
     {
         $payload = [
             'iat' => time(),
-            'exp' => time() + 3600,
+            'exp' => time() + $_ENV['EXPIRY_TOKEN_IN_SECOND'] ?? 3600,
             'sub' => $userInfo->id,
             'name' => $userInfo->name,
             'email' => $userInfo->email,

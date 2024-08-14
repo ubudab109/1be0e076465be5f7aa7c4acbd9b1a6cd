@@ -17,7 +17,7 @@ use Exception;
 class Email
 {
     private $pdo;
-    private $attributes = ['id', 'email', 'message', 'created_at', 'updated_at'];
+    private $attributes = ['id', 'email', 'message', 'status', 'subject', 'details', 'created_at', 'updated_at'];
     private $table = 'emails';
 
     // Constructor
@@ -37,14 +37,27 @@ class Email
         return $this->attributes[$key] ?? null;
     }
 
-    // Get all emails
     public function all(): array
     {
         $stmt = $this->pdo->query("SELECT * FROM {$this->table}");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Find email by ID
+    public function findManyBy(mixed $attribute, mixed $value): array
+    {
+        if (is_array($value)) {
+            $placeholders = implode(", ", array_fill(0, count($value), "?"));
+            $sql = "SELECT * FROM {$this->table} WHERE {$attribute} IN ($placeholders)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($value);
+        } else {
+            $sql = "SELECT * FROM {$this->table} WHERE {$attribute} = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$value]);
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function find(int $id): self
     {
         $stmt = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = :id");
@@ -53,39 +66,58 @@ class Email
         return $this;
     }
 
-    // Save or update email
-    public function save(): void
+    public function save(): array
     {
         if (isset($this->attributes['id'])) {
             $this->update();
         } else {
             $this->create();
         }
+        return $this->attributes;
     }
 
     private function create(): void
     {
-        $columns = implode(", ", array_keys($this->attributes));
-        $placeholders = ":" . implode(", :", array_keys($this->attributes));
-        $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
-        $stmt = $this->pdo->prepare($sql);
         $this->setTimestamps();
-        $stmt->execute($this->attributes);
+
+        $filteredAttributes = array_filter($this->attributes, fn($key) => in_array($key, ['email', 'message', 'status', 'subject', 'details', 'created_at', 'updated_at']), ARRAY_FILTER_USE_KEY);
+
+        $columns = array_keys($filteredAttributes);
+
+        $placeholders = array_map(fn($col) => ":$col", $columns);
+
+        $columnsList = implode(", ", $columns);
+
+        $placeholdersList = implode(", ", $placeholders);
+
+        $sql = "INSERT INTO {$this->table} ($columnsList) VALUES ($placeholdersList)";
+        
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute($filteredAttributes);
+
+        $this->attributes['id'] = $this->pdo->lastInsertId();
     }
 
     private function update(): void
     {
-        $id = $this->attributes['id'];
-        unset($this->attributes['id']);
-        $this->setTimestamps();
-        $setClause = implode(", ", array_map(fn($col) => "$col = :$col", array_keys($this->attributes)));
+        $id = $this->attributes['id'] ?? null;
+        if (!$id) {
+            throw new Exception('ID must be set for an update operation.');
+        }
+        $attributesToUpdate = array_filter($this->attributes, fn($key) => in_array($key, ['email', 'message', 'status', 'subject', 'details', 'created_at', 'updated_at']), ARRAY_FILTER_USE_KEY);
+
+        $attributesToUpdate['id'] = $id;
+
+        $setClause = implode(", ", array_map(fn($col) => "$col = :$col", array_keys($attributesToUpdate)));
+
         $sql = "UPDATE {$this->table} SET $setClause WHERE id = :id";
+
         $stmt = $this->pdo->prepare($sql);
-        $this->attributes['id'] = $id;  // Re-add id for the WHERE clause
-        $stmt->execute($this->attributes);
+
+        $stmt->execute($attributesToUpdate);
     }
 
-    // Delete email
     public function delete(): void
     {
         if (!isset($this->attributes['id'])) {
@@ -96,7 +128,6 @@ class Email
         $stmt->execute(['id' => $this->attributes['id']]);
     }
 
-    // Set timestamps
     private function setTimestamps(): void
     {
         $now = (new DateTime())->format('Y-m-d H:i:s');

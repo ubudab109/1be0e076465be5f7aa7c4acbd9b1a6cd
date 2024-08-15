@@ -84,7 +84,12 @@ Response Schema:
     "message": "string",
     "data": "any (Object, Array, Null)"
 }
+```
 
+## Things to Improve
+- Store Oauth data user login to database. Currently, this backend not saving the data user from Google Authenticated
+- Add validation middleware. Currently validation is set manually on controller by checking request body. Need to add validation middleware to check user input
+- Use binding for repository and controller
 
 
 
